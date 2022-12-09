@@ -1,0 +1,97 @@
+@use "config";
+
+header {
+    box-shadow: config.$shadow;
+    background-color: white;
+}
+
+.header-content {
+    align-items: center;
+    border-bottom: config.$border;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 0.25rem 0.5rem 0.875rem 0.5rem;
+
+    .title-container {
+        flex-shrink: 0;
+
+        .title {
+            align-items: center;
+            display: flex;
+            white-space: nowrap; 
+        }
+        
+        h1 {
+            font-weight: 900;
+            letter-spacing: 0.2rem;
+        }
+    }
+
+    .search {
+        width: 100%;
+
+        .input-fields {
+            display: flex;
+            gap: 0.25rem;
+            justify-content: center;
+
+            .search-box {
+                border: config.$border;
+                border-radius: 0.5rem;
+                flex-grow: 1;
+                font-size: 0.875rem;
+                max-width: 500px;
+                padding: config.$input-padding;  
+            }
+
+            .search-button {
+                background-color: lightgrey;
+                border: none;
+                border-radius: 1rem;
+                padding: 0 0.5rem; 
+            }
+        }
+    }
+
+    .login-information {
+        display: flex;
+        flex-shrink: 0;
+        gap: 1rem;
+    }
+}
+
+@media(max-width: 875px) {
+    .header-content {
+        flex-direction: column;
+        padding-bottom: 2rem;
+    }
+}
+
+.nav-list {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0;
+
+    li {
+        border-radius: 2px;
+        flex-grow: 1;
+        padding: config.$input-padding;
+        text-align: center;
+    }
+
+    li:hover {
+        text-decoration: underline;
+    }
+}
+
+@media(max-width: 875px) {
+    .nav-list {
+        flex-direction: column;  
+
+        li {
+            width: 100%;
+        }
+    }
+}

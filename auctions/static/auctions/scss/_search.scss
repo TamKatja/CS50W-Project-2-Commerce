@@ -1,0 +1,12 @@
+.category-list,
+.search-list {
+    .category,
+    .search-result {
+        list-style-position: inside;
+        list-style-type: square;
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}

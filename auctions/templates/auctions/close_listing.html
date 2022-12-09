@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Close Listing - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="page-content-center-column">
+        <div>Are you sure you want to close listing: <strong>{{ listing.title }}</strong></div>
+        <div class="close-listing-form">
+            <form method="post">
+                {% csrf_token %}
+                <input class="confirm-button" type="submit" value="Confirm">
+            </form>
+            <a href="{% url 'my_listings' %}"><button class="back-button">Back</button></a>
+        </div>
+    </div>
+{% endblock %}

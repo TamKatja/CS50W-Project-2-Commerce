@@ -1,0 +1,47 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} {{ user.username }}'s Listings - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="mylistings-header">
+        <div>
+            <a href="{% url 'index' %}"><button class="back-button">Back to All Active Listings</button></a>
+        </div>
+        <div>
+            <h3>{{ user.username }}'s Listings</h3>
+        </div>
+    </div>
+    <div class="grid-container">
+        {% for listing in user_listings %} 
+            <div class="grid-item">
+                {% if listing.active %}
+                    <div><img src="{{ listing.image_file.url }}" alt="listing image"></div>
+                {% else %}
+                    <div class="inactive-listing-image"><img src="{{ listing.image_file.url }}" alt="listing image"></div>
+                {% endif %}
+                <div class="user-listing-details">
+                    <div class=title>
+                        <a href="{% url 'goto_listing' listing.id %}"><h3>{{ listing.title }}</h3></a>
+                    </div>
+                    <div>Listed on {{ listing.datetime_listed|date:"SHORT_DATE_FORMAT" }} for AU ${{ listing.start_price }}</div>
+                    {% if listing.active %}
+                        {% if listing.current_price > listing.start_price %}
+                            <div>User {{ listing.highest_bidder }} has bid AU ${{ listing.current_price }}.</div>
+                        {% else %}
+                            <div>No bids currently.</div>
+                        {% endif %}
+                        <div class="listing-close-link">
+                            <a href="{% url 'close_listing' listing.id %}"><button>Close Listing</button></a>
+                        </div>
+                    {% else %}
+                        {% if listing.highest_bidder %}
+                            <div> You sold this item to {{ listing.highest_bidder }} for AU ${{ listing.current_price }}.</div>
+                        {% else %}
+                            <div>You closed this listing with 0 bids.</div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

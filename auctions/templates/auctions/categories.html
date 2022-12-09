@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} All Categories - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="category-header">
+        <div>
+            <a href="{% url 'index' %}"><button class="back-button">Back to All Active Listings</button></a></div>
+        <div>
+            <h3>All Categories</h3>
+        </div>
+    </div>
+    <div class="category-list-container">
+        <ul class="category-list">
+            {% for category in categories %}
+            <div>
+                <li class="category"><a href="{% url 'goto_category' category.id %}">Search {{ category }}</a></li>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

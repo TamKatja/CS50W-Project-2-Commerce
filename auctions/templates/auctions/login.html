@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Login - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="page-content-center">
+        <div class="login-container">
+            <div>
+                <h2>Login</h2>
+            </div>
+            <div class="login-form">
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <input type="text" name="username" placeholder="Username" required autofocus autocomplete="off">
+                    </div>
+                    <div>
+                        <input type="password" name="password" placeholder="Password" required autocomplete="off">
+                    </div>
+                    <div class="login-button">
+                        <input type="submit" value="Login">
+                    </div>
+                </form>
+                {% if message %}
+                <div class="invalid-login-message">
+                    <i>{{ message }}</i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="register-link">
+                Don't have an account? <a href="{% url 'register' %}"><strong>Register here</strong>.</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

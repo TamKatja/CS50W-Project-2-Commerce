@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Active Listings - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="grid-container">
+        {% for listing in active_listings %}
+            <div class="grid-item">
+                <div>
+                    <img src="{{ listing.image_file.url }}" alt="listing image">
+                </div>
+                <div class="listing-details">
+                    <div class="title">
+                        <a href="{% url 'goto_listing' listing.id %}"><strong>{{ listing.title }}</strong></a>
+                    </div>
+                    <div class="price">
+                        <strong>AU ${{ listing.current_price}}</strong>
+                    </div>
+                    <div class="border span-2"></div>
+                    <div class="description span-2">
+                        <i>{{ listing.description|truncatewords:25 }}</i>
+                    </div>
+                    <div class="datetime span-2">
+                        <strong>{{ listing.seller.username}}</strong> listed on {{ listing.datetime_listed|date:"SHORT_DATE_FORMAT" }}
+                    </div>
+                    <div class="listing-link span-2">
+                        <a href="{% url 'goto_listing' listing.id %}"><button class="view-button">View</button></a>
+                    </div>
+                </div>
+                {% if listing in active_bidder %}
+                    {% if request.user == listing.highest_bidder %}
+                        <div class="user-bid-notification">You are currently the highest bidder! &#128512;</div>
+                    {% else %}
+                        <div class="user-bid-notification">Another user has placed a higher bid. &#128530;</div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

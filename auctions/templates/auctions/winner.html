@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Winner! - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="listing-grid-container">
+        <div class="listing-image">
+            <img src="{{ listing_won.image_file.url }}" alt="listing image">
+            {% if listing_won.image_link %}
+            <div>
+                <a class="image-link" href="{{ listing_won.image_link }}"><button>Image Link</button></a>
+            </div>
+            {% endif %}
+            <div>
+                <a href="{% url 'index' %}"><button class="back-button">Back to All Active Listings</button></a>
+            </div>
+        </div>
+        <div class="listing-information">
+            <div class="title">
+                <h2>{{ listing_won.title }}</h2>
+            </div>
+            <div class="description">
+                <i>{{ listing_won.description }}</i>
+            </div>
+            {% if listing_won.category %}
+                <div>
+                    <a class="category" href="{% url 'goto_category' listing_won.category.id %}">{{ listing_won.category}}</a>
+                </div>
+            {% endif %}
+            <div>Seller: {{ listing_won.seller.username }}.</div>
+            <div>Listed on {{ listing_won.datetime_listed|date:"SHORT_DATE_FORMAT" }}.</div>
+            <div class="congratulations">
+                <p>Congratulations! You were the highest bidder for this item with a bid of <strong>AU ${{ listing_won.current_price }}</strong>. &#127881; 
+            </div>
+            <div><img src="\static\auctions\images\cartoon_box.jpg" alt="congratulations" width="100%"></div>
+            <div class="attribution"><i>Image by pch.vector on Freepik</i></div>
+        </div>
+    </div>
+{% endblock %}

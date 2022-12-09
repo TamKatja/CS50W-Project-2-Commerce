@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Shop {{ category.name }} - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="category-header">
+        <div>
+            <a href="{% url 'categories' %}"><button class="back-button">Back to All Categories</button></a>
+        </div>
+        <div>
+            <h3>Active Listings &#187; {{ category.name }}</h3>
+        </div>
+    </div>
+    <div class="grid-container">
+        {% for listing in listings %}
+        <div class="grid-item">
+            <div>
+                <img src="{{ listing.image_file.url }}" alt="listing image">
+            </div>
+            <div class="listing-details">
+                <div class="title">
+                    <a href="{% url 'goto_listing' listing.id %}"><strong>{{ listing.title }}</strong></a>
+                </div>
+                <div class="price">
+                    AU ${{ listing.current_price}}
+                </div>
+                <div class="border span-2"></div>
+                <div class="description span-2">
+                    <i>{{ listing.description }}</i>
+                </div>
+                <div class="seller span-2">
+                    <strong>Seller: </strong>{{ listing.seller.username }}
+                </div>
+                <div class="datetime span-2">
+                    <strong>Listed: </strong>{{ listing.datetime_listed|date:"SHORT_DATE_FORMAT" }}
+                </div>
+                <div class="listing_link span-2">
+                    <a href="{% url 'goto_listing' listing.id %}"><button class="view-button">View</button></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

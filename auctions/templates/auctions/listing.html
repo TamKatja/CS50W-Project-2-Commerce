@@ -1,0 +1,103 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} {{ listing.title }} - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="listing-grid-container">
+        <div class="listing-image">
+            <img src="{{ listing.image_file.url }}" alt="listing image">
+            {% if listing.image_link %}
+                <div>
+                    <a class="image-link" href="{{ listing.image_link }} "><button>Image Link</button></a>
+                </div>
+            {% endif %}
+            <div>
+                <a href="{% url 'index' %}"><button class="back-button">Back to all listings</button></a>
+            </div>
+        </div>
+        <div class="listing-information">
+            <div class="title">
+                <h2>{{ listing.title }}</h2>
+            </div>
+            <div class="description">
+                <i>{{ listing.description }}</i>
+            </div>
+            {% if listing.category %}
+            <div>
+                <a class="category" href="{% url 'goto_category' listing.category.id %}">{{ listing.category}}</a>
+            </div>
+            {% endif %}
+            <div class="place-bid">
+                <div class="current-bid">
+                    Current bid: <span>AU ${{ listing.current_price }}</span> ({{ bid_count }} bid/s)
+                </div>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'bid' listing.id %}">
+                    {% csrf_token %}
+                    AU $ {{ bid_form.bid_price }}
+                    {% if listing.seller == request.user %}
+                        <input type="submit" value="Place bid" name="place_bid" disabled>
+                    {% else %}
+                        <input type="submit" value="Place bid" name="place_bid">
+                    {% endif %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="invalid-bid">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+                {% else %}
+                <div>
+                    <a href="{% url 'login' %}"><button class="bid-login-button">Login to Bid</button></a>
+                </div>
+                {% endif %}
+            </div>
+            <div>Seller: {{ listing.seller.username }}.</div>
+            <div>Listed on {{ listing.datetime_listed|date:"SHORT_DATE_FORMAT" }}.</div>
+            <div>{{ watch_count }} user/s watching.</div>
+            <div>
+                {% if user.is_authenticated %}
+                    {% if item_watched %}
+                        <form method="post" action="{% url 'removefrom_watchlist' listing.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Remove from watchlist" name="remove_from_watchlist">
+                        </form>
+                    {% else %}
+                        <form method="post" action="{% url 'addto_watchlist' listing.id %}">
+                            {% csrf_token %}
+                            {% if listing.seller == request.user %}
+                                <input type="submit" value="Add to watchlist" name="add_to_watchlist" disabled>
+                            {% else %}
+                                <input type="submit" value="Add to watchlist" name="add_to_watchlist">
+                            {% endif %}
+                        </form>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                <form class="comment-form" method="post" action="{% url 'comment' listing.id %}">
+                    {% csrf_token %}
+                    <div>{{ comment_form.message }}</div>
+                    <div class="comment-button-container">
+                        <input type="submit" value="Comment" name="submit_comment">
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="comment-count">{{ comment_count }} comment/s:</div>
+    <div class="comments-container">
+        {% for comment in listing_comments %}
+        <div class="comment">
+            <div>
+                <strong>{{ comment.author.username }}</strong> {{ comment.timestamp|date:"SHORT_DATE_FORMAT" }}
+            </div>
+            <div>
+                {{ comment.message }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

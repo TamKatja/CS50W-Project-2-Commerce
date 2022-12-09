@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} Auctions Online {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="\static\auctions\icons\parcel-box-package-icon.png">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="title-container">
+                <a href="{% url 'index' %}"><div class="title"><h1>AUCTIONS ONLINE &#128230;</h1></div></a>
+            </div>
+            <div class="search">
+                <form action="{% url 'search' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-fields">
+                        <input class="search-box" type="text" name="q" placeholder="Search Listings" autocomplete="off">
+                        <button class="search-button">
+                            <input type="image" alt="Search" src="\static\auctions\icons\search-icon.png" width="10px" height="10px">
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="login-information">
+                {% if user.is_authenticated %}
+                <div class="current_user">Signed in as <strong>{{ user.username }}</strong>.</div>
+                <div><a href="{% url 'logout' %}"><strong>Log Out</strong></a></div>
+                {% else %}
+                <div class="current_user">Not signed in.</div>
+                <div><a href="{% url 'login' %}"><strong>Login</strong></a></div>
+                <div><a href="{% url 'register' %}"><strong>Register</strong></a></div>
+                {% endif %}
+            </div>
+        </div>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'index' %}">ACTIVE LISTINGS</a></li>
+                <li><a href="{% url 'categories' %}">SEARCH CATEGORIES</a></li>
+                <li><a href="{% url 'add_listing' %}">ADD LISTING</a></li>
+                <li><a href="{% url 'my_listings' %}">MY LISTINGS</a></li>
+                <li><a href="{% url 'goto_watchlist' %}">MY WATCHLIST</a></li>
+                <li><a href="{% url 'inactive_listings' %}">CLOSED LISTINGS</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2022 Tamara Eigenmann.</p>
+    </footer>
+</body>
+</html>

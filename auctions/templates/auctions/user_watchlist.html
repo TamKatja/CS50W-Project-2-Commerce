@@ -1,0 +1,50 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} {{ user.username }}'s Watchlist - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="mywatchlist-header">
+        <div>
+            <a href="{% url 'index' %}"><button class="back-button">Back to All Active Listings</button></a>
+        </div>
+        <div>
+            <h3>{{ user.username }}'s Watchlist</h3>
+        </div>
+    </div>
+    <div class="grid-container">
+        {% for listing in listings %}
+        <div class="grid-item">
+            <div>
+                <img src="{{ listing.image_file.url }}" alt="listing image">
+            </div>
+            <div class="listing-details">
+                <div class="title">
+                    <a href="{% url 'goto_listing' listing.id %}"><strong>{{ listing.title }}</strong></a>
+                </div>
+                <div class="price">
+                    <strong>AU ${{ listing.current_price}}</strong>
+                </div>
+                <div class="border span-2"></div>
+                <div class="description span-2">
+                    <i>{{ listing.description|truncatewords:25 }}</i>
+                </div>
+                <div class="seller span-2">
+                    <strong>Seller: </strong>{{ listing.seller.username }}
+                </div>
+                <div class="datetime span-2">
+                    <strong>Listed: </strong>{{ listing.datetime_listed|date:"SHORT_DATE_FORMAT" }}
+                </div>
+                <div class="listing-link span-2">
+                    <a href="{% url 'goto_listing' listing.id %}"><button class="view-button">View</button></a>
+                </div>
+            </div>
+            <div class="cross-button">
+                <form method="post" action="{% url 'removefrom_watchlist' listing.id %}">
+                    {% csrf_token %}
+                    <input type="submit" value="&#10006;" name="cross_button_remove_from_watchlist">
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

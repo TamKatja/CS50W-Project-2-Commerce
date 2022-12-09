@@ -1,0 +1,73 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Closed Listings - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="inactive-listings-header">
+        <div>
+            <a href="{% url 'index' %}"><button class="back-button">Back to All Active Listings</button></a>
+        </div>
+        <div>
+            <h3>Closed Listings</h3>
+        </div>
+    </div>
+    <div class="grid-container">
+        {% for listing in listings_won %}
+            <div class="grid-item">
+                <div class="inactive-listing-image">
+                    <img src="{{ listing.image_file.url }}" alt="listing image">
+                </div>
+                <div class="inactive-listing-details">
+                    <div class="winner-notification">
+                        &#10024; Congratulations! &#10024;
+                    </div>
+                    <div class="title span-2">
+                        <h3>{{ listing.title }}</h3>
+                    </div>
+                    <div class="span-2">
+                        You bought this item from {{ listing.seller}} for AU ${{ listing.current_price}}.
+                    </div>
+                    <div class="listing-link span-2">
+                        <a href="{% url 'winner' listing.id %}"><button class="view-button">View</button></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for listing in inactive_listings %}
+            <div class="grid-item">
+                <div class="inactive-listing-image">
+                    <img src="{{ listing.image_file.url }}" alt="listing image">
+                </div>
+                <div class="inactive-listing-details">
+                    <div class="title span-2">
+                        <h3>{{ listing.title }}</h3>
+                    </div>
+                    {% if listing.current_price > listing.start_price %}
+                        {% if request.user == listing.seller %}
+                            <div class="span-2">
+                                You sold this item to {{ listing.highest_bidder }}.
+                            </div>
+                        {% elif request.user != listing.highest_bidder %}
+                            <div class="span-2">
+                                {{ listing.seller }} sold this item to another user.
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {% if request.user == listing.seller %}
+                            <div class="span-2">
+                                You closed this listing with 0 bids.
+                            </div>
+                        {% else %}
+                            <div class="span-2">
+                                {{ listing.seller }} closed this listing with 0 bids.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <div class="listing-link span-2">
+                        <a href="{% url 'winner' listing.id %}"><button class="view-button" disabled>View</button></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %} 

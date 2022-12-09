@@ -1,0 +1,159 @@
+@use "config";
+
+.grid-container {
+
+    .grid-item {
+        background-color: white;
+        border: config.$border;
+        border-radius: 0.25rem;
+        box-shadow: config.$shadow;
+        position: relative;
+
+        img {
+            border-bottom: config.$border;
+        }
+
+        .listing-details {
+
+            .price {
+                color: rgb(220, 2, 2);
+            }
+
+            .datetime {
+                padding-bottom: 0.75rem;
+            }
+        }
+
+        .listing-link {
+
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .cross-button {
+            margin: 0.25rem;
+            position:absolute;
+            right: 1px;
+            top: 0;
+        }
+    }
+}
+
+.user-bid-notification {
+    background-color: white;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    box-shadow: config.$shadow;
+    display: flex;
+    justify-content: center;
+    padding: 0.25rem 0 0.25rem 0;
+    position:absolute; 
+    width: 100%; 
+}
+
+.winner-notification {
+    @extend .user-bid-notification;
+        top: 0;
+        right: 0;
+}
+
+.listing-grid-container {
+    
+    .listing-image {
+
+        img {
+            border-radius: 0.25rem;
+            box-shadow: config.$shadow;
+        }
+    } 
+
+    .listing-information {
+        background-color: white;
+        border: 0.5px solid lightgrey;
+        border-radius: 0.125rem;
+        box-shadow: config.$shadow;
+        
+        .category {
+            background-color: config.$highlight-color;
+            border-radius: 1rem;
+            padding: 0.125rem 0.25rem;
+        }
+
+        .place-bid {
+            background-color: lightgrey;
+            border-radius: 0.25rem;
+        }
+
+        input {
+            background-color: white;
+            border: 0.5px solid grey;
+            border-radius: 0.125rem;
+            box-shadow: config.$shadow;
+            cursor: pointer;
+        }
+
+        input#id_bid_price {
+            border: none;
+            border-radius: 0.25rem;
+            box-shadow: none;
+            cursor: text;
+        }
+
+        textarea {
+            font-family: config.$primary-font;
+        }  
+
+        .invalid-bid {
+            color: config.$error;
+        }
+    }
+}
+
+.comments-container {
+
+    .comment {
+        background-color: white;
+        border: 0.5px solid grey;
+        border-radius: 0.25rem;
+    }
+}
+
+.form-container form {
+    
+    input,
+    textarea,
+    select {
+        border: 0.5px solid grey;
+        border-radius: 0.25rem;
+        font-family: config.$primary-font;
+    }
+
+    input#id_image_file {
+        border: none;
+    }
+
+    .field-error {
+        color: config.$error;
+        padding-left: 1rem;
+    }
+
+    .form-errors {
+        color: config.$error;
+        padding: 1rem;
+    }
+}
+
+.inactive-listing-image {
+    opacity: 0.5;
+}
+
+.congratulations {
+    align-items: center;
+    background-color: config.$highlight-color;
+    border-radius: 0.25rem;
+    display: flex;
+    font-size: 1rem;
+    justify-content: center;
+    padding: 1rem;  
+}

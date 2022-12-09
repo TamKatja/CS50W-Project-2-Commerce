@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Add Listing - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <div><label for="form.title.id_for_label">Title: </label></div>
+            <div>{{ form.title }}</div>
+            <div class="field-error">{{ form.title.errors }} </div>
+            <div><label for="form.description.id_for_label">Description: </label></div>
+            <div>{{ form.description }}</div>
+            <div class="field-error">{{ form.description.errors }}</div>
+            <div><label for="form.start_price.id_for_label">Starting Price: <strong>AU $</strong></label></div>
+            <div>{{ form.start_price }}</div>
+            <div class="field-error">{{ form.start_price.errors }}</div>
+            <div><label for="form.image_link.id_for_label"> Image URL: </label></div>
+            <div>{{ form.image_link }}</div>
+            <div class="field-error">{{ form.image_link.errors }}</div>
+            <div><label for="form.image_file.id_for_label"> Image File: </label></div>
+            <div>{{ form.image_file }}</div>
+            <div class="field-error">{{ form.image_file.errors }}</div>
+            <div><label for="form.category.id_for_label"> Category: </label></div>
+            <div>{{ form.category }}</div>
+            <div class="field-error">{{ form.category.errors }}</div>
+            <div class="form-errors"><i>{{ form.non_field_errors }}</i></div>
+            <div class="submit-button"><input type=submit value="Submit"></div>
+        </form>
+    </div>
+{% endblock %}

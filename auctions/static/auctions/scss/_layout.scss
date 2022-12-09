@@ -1,0 +1,335 @@
+@use 'config';
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    width: 100vw;
+}
+
+header {
+    padding: 0.75rem 0.75rem 0 0.75rem;
+}
+
+main {
+    margin: 1rem;
+}
+
+// index.html, category.html and user_watchlist.html styles
+
+.grid-container {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    
+    .grid-item {
+        display: flex;
+        flex-direction: column;
+
+        img {
+            height: 200px;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+        }
+
+        .listing-details {
+            column-gap: 0.5rem;
+            display: grid;
+            grid-template-columns: 1fr 100px;
+            height: 100%;
+            padding: 0.5rem;
+            row-gap: 0.5rem;
+
+            .price {
+                justify-self: right;
+            }
+
+            .span-2 {
+                grid-column: 1 / span 2;
+            }
+
+            .border {
+                background-color: lightgrey;
+                height: 1px;
+                width: 100%;
+            }
+
+            .listing-link {
+                align-self: end;
+                justify-self: center;
+                padding-bottom: 0.25rem;
+                width: 100%;
+            }
+
+            .view-button {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.category-header {
+    @extend .search-header;
+}
+
+.mywatchlist-header {
+    @extend .search-header;
+}
+
+// login.html and register.html styles
+
+.page-content-center {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    
+}
+
+.login-container,
+.register-container {
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 30px;
+    padding: 1.5rem 2.5rem;
+
+    input {
+        margin-bottom: 2rem;
+        padding: config.$input-padding;
+        width: 100%; 
+    }
+}
+
+// categories.html and search.html styles
+
+.category-list,
+.search-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+.search-header {
+    align-items: center;
+    border-bottom: config.$border;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;  
+}
+
+// add_listing.html styles
+
+.form-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container form {
+    column-gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 150px minmax(300px, 1fr) auto;
+    margin: 1rem 0 0.5rem 0;
+    padding: 1rem 1rem 1rem 0;
+    row-gap: 1rem;
+    width: 80%;
+
+    input,
+    textarea,
+    select {
+        padding: config.$input-padding;
+        width: 100%;
+    }
+
+    input#id_start_price {
+        width: 25%;
+    }
+
+    input#id_image_file {
+        padding-left: 0;
+    }
+
+    .form-errors {
+        width: 300px;
+    }
+
+    .submit-button {
+        justify-self: center;
+        width: 150px;
+       
+    }
+}
+
+// listing.html styles
+
+.listing-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    padding: 1rem;
+    width: 100%;
+
+    .listing-image {
+        position: relative;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+        }
+
+        .image-link {
+            bottom: 0;
+            position: absolute;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 0;
+        }
+    }
+
+    .listing-information {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+
+        input,
+        button {
+            padding: config.$input-padding;
+        }
+
+        .title {
+            border-bottom: config.$border;
+            padding-bottom: 1rem;
+        }
+
+        .current-bid {
+            padding-bottom: 1rem;
+
+            span {
+                font-size: 1.172rem; // TODO !!!
+                font-weight: bold;
+            }
+        }
+
+        .place-bid {
+            padding: 1rem;
+
+            .invalid-bid {
+                padding-top: 1rem;
+            }
+        }
+
+        input#id_bid_price {
+            margin-right: 0.25rem;
+            width: 100px;
+        }
+    }
+}
+
+.comment-form {
+    width: 100%;
+
+    textarea {
+        margin-bottom: 0.5rem;
+        max-height: 100px;
+        max-width: 100%;
+        min-height: 25px;
+        min-width: 100%;
+        padding: config.$input-padding;
+        
+    }
+
+    .comment-button-container {
+        display: flex;
+        justify-content: right;
+    }
+}
+
+.comment-count,
+.comments-container {
+    margin: 0 2rem 1rem 2rem;
+}
+
+.comments-container {
+    max-width: 1200px;
+
+    .comment {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+        padding: config.$input-padding;
+        row-gap: 0.5rem;
+    }
+}
+
+// user_listings.html styles
+
+.mylistings-header {
+    @extend .search-header;
+}
+
+.user-listing-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    padding: 0.5rem;
+    row-gap: 0.5rem;
+    
+    .title {
+        border-bottom: config.$border;
+        padding-bottom: 0.5rem;
+    }
+
+    .listing-close-link {
+        align-self: center;
+        width: 100%;
+        
+        button {
+            width: 100%;
+        }
+    }
+}
+
+// close_listing.html styles
+
+.page-content-center-column {
+    @extend .page-content-center;
+    flex-direction: column;
+}
+
+.close-listing-form {
+    display: flex;
+    gap: 1rem;
+
+    input,
+    button {
+        margin-top: 2rem;
+        padding: config.$input-padding;
+        width: 100px;
+    }
+}
+
+// inactive_listings.html styles
+
+.inactive-listings-header {
+    @extend .search-header;
+}
+
+.inactive-listing-details {
+    @extend .listing-details;
+
+    .title {
+        height: 1.5rem;
+        border-bottom: config.$border;
+        padding-bottom: 0.5rem;
+    }
+}

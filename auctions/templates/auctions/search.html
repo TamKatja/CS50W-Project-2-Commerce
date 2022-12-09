@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Search Listings - Auctions Online {% endblock %}
+
+{% block content %}
+    <div class="search-header">
+        <div>
+            <a href="{% url 'categories' %}"><button class="back_button">Back to All Active Listings</button></a>
+        </div>
+        <div>
+            <h3 class="search-message">{{ message }}</h3>
+        </div>
+    </div>
+    {% if search_results %}
+        <div class=search-list-container>
+            <ul class="search-list">
+                {% for listing in search_results %}
+                <div>
+                    <li class="search-result"><a href="{% url 'goto_listing' listing.id %}">{{ listing.title }}</a></li>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

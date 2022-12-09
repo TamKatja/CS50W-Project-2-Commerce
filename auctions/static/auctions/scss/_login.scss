@@ -1,0 +1,14 @@
+@use "config";
+
+.login-container,
+.register-container {
+    background-color: white;
+    border: 0.5px solid lightgrey;
+    border-radius: 0.25rem;
+    box-shadow: config.$shadow;
+    
+    .invalid-login-message,
+    .invalid-registration-message {
+        color: config.$error;
+    }
+}
