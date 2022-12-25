@@ -2,7 +2,7 @@
 
 An e-commerce auction site that allows users to post auction listings, place bids on listings, comment on listings and add listings to a "watchlist". Built using Python, Django, HTML, CSS and Sass. Responsive design ensures usability on varying screen sizes. Submitted as part of [CS50's Web Programming with Python and JavaScript course](https://cs50.harvard.edu/web/2020/).
 
-▶️ See [video preview] (https://www.youtube.com/watch?v=VBtFKKC3YWE).
+▶️ See [video preview](https://www.youtube.com/watch?v=VBtFKKC3YWE).
 
 📝 See [project specifications](https://cs50.harvard.edu/web/2020/projects/2/commerce/).
 
